@@ -1,95 +1,81 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+
+import { useEffect, useState } from "react";
 
 export default function Home() {
+
+  const [count,setCount] = useState(0)
+  const [stopper,setStopper] = useState(false)
+
+  /**
+   * useState has two parameres, 1. variable, 2. setter.
+   * useEffect has two parametes, 1. call back funciton 2.dependency array
+   * useEffect has 3 condition's
+   * 1. No Dependency array.
+   * 2. Empty Dependency array.
+   * 3. Dependency array with parameter
+   */
+
+
+  // * 1. No Dependency array.
+  // useEffect(()=>{
+  //   setTimeout(()=>{
+  //   setCount(count+1)
+  //     setStopper(!stopper)
+  //   },1000)
+  // }) 
+
+  // * 2. Empty Dependency array.
+  // useEffect(()=>{
+  //   setTimeout(()=>{
+  //   setCount(count+1)
+  //     setStopper(!stopper)
+  //   },1000)
+
+  // },[]) 
+
+  // * 3. Dependency array with parameter
+  useEffect(()=>{
+    setTimeout(()=>{
+    setCount(count+1)
+      setStopper(!stopper)
+    },1000)
+
+  },[stopper]) 
+
+
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <div
+    style={{
+      width:"100vw",
+      height:"100vh",
+      display:'flex',
+      justifyContent:"center",
+      alignItems:'center',
+      gap:10
+    }}
+    >
+    <button onClick={()=>setCount(count-1)}>
+      -</button> 
+    <h1>{count}</h1>
+    <button
+    style={{
+      cursor:'pointer',
+      backgroundColor:'red',
+      color:'white'
+    }}
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    onClick={()=>setCount(count+1)}
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    >+</button>
+    <button
+    
+    onClick={()=>{
+      setCount(0)
+      setStopper(true)
+    }}
+    >Reset</button>
+    </div>
   );
 }
